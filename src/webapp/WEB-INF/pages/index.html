@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Users</title>
+    <link th:href="@{styles/style.css}" rel="stylesheet" />
 </head>
 <body>
 <div>
-    <th:block th:each="msg : ${messages}">
-        <h1 th:text="${msg}"></h1>
+    <th:block th:each="user : ${users}">
+        <div class="elem">
+            <span th:text="${user.getName()}">name</span>
+            <span th:text="${user.getCity()}">city</span>
+            <span th:text="${user.isMarried()? 'В браке' : 'Не в браке'}">married</span>
+
+            <a th:href="@{/edit?id={id}(id=${user.getId()})}">Edit</a>
+            <a th:href="@{/delete?id={id}(id=${user.getId()})}">Delete</a>
+        </div>
     </th:block>
+</div>
+<div>
+    <a href="new">Создать нового пользователя</a>
 </div>
 </body>
 </html>
