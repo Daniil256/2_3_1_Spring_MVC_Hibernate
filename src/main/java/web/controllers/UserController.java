@@ -3,16 +3,17 @@ package web.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import web.dao.*;
+import web.service.UserService;
 import web.models.User;
 
 @Controller
 @RequestMapping
 public class UserController {
+   UserService userService = new UserService();
 
-    @GetMapping()
+    @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("users", GetAll.getAllUsers());
+        model.addAttribute("users", userService.getAllUsers());
         return "index";
     }
 
@@ -23,25 +24,25 @@ public class UserController {
 
     @PostMapping()
     public String create(@ModelAttribute("user") User user) {
-        Save.saveUser(user);
+        userService.saveUser(user);
         return "redirect:/";
     }
 
     @GetMapping("/edit")
     public String edit(@RequestParam("id") int id, Model model) {
-        model.addAttribute("user", Get.getUserById(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "edit";
     }
 
     @PostMapping("/edit")
     public String update(User user) {
-        Update.updateUser(user);
+        userService.updateUser(user);
         return "redirect:/";
     }
 
     @GetMapping("/delete")
     public String delete(@RequestParam("id") long id) {
-        Remove.removeUserById(id);
+        userService.removeUserById(id);
         return "redirect:/";
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class CreateEntityManager {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("user_pu");
 
-    public static EntityManager openConnect() {
+    public EntityManager openConnect() {
         return emf.createEntityManager();
     }
 }
