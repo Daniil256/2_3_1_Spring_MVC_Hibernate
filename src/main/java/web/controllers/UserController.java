@@ -9,7 +9,12 @@ import web.models.User;
 @Controller
 @RequestMapping
 public class UserController {
-   UserService userService = new UserService();
+
+    private final UserService userService;
+
+    public UserController() {
+        this.userService = new UserService();
+    }
 
     @GetMapping("/")
     public String index(Model model) {

@@ -2,14 +2,21 @@ package web.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import org.springframework.stereotype.Component;
 import web.Utils.CreateEntityManager;
 import web.models.User;
 
 import java.util.List;
 
-public class UserDAO {
-    private final static CreateEntityManager manager = new CreateEntityManager();
+@Component
+public class UserDAO implements IUserDAO {
+    private final CreateEntityManager manager;
 
+    public UserDAO() {
+        this.manager = new CreateEntityManager();
+    }
+
+    @Override
     public User getUserById(int id) {
         try (EntityManager em = manager.openConnect()) {
             EntityTransaction et = em.getTransaction();
@@ -23,6 +30,7 @@ public class UserDAO {
         return null;
     }
 
+    @Override
     public List<User> getAllUsers() {
         try (EntityManager em = manager.openConnect()) {
             EntityTransaction et = em.getTransaction();
@@ -31,11 +39,12 @@ public class UserDAO {
             et.commit();
             return users;
         } catch (Exception e) {
-            System.out.println("GetAll " + e);
+            System.out.println("Ошибка в GetAll " + e);
         }
         return null;
     }
 
+    @Override
     public void removeUserById(long id) {
         try (EntityManager em = manager.openConnect()) {
             EntityTransaction et = em.getTransaction();
@@ -48,6 +57,7 @@ public class UserDAO {
         }
     }
 
+    @Override
     public void saveUser(User user) {
         try (EntityManager em = manager.openConnect()) {
             EntityTransaction et = em.getTransaction();
@@ -59,6 +69,7 @@ public class UserDAO {
         }
     }
 
+    @Override
     public void updateUser(User user) {
         try (EntityManager em = manager.openConnect()) {
             EntityTransaction et = em.getTransaction();

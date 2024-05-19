@@ -1,33 +1,41 @@
 package web.service;
 
+import org.springframework.stereotype.Component;
 import web.dao.UserDAO;
 import web.models.User;
 
 import java.util.List;
 
-public class UserService extends UserDAO {
+@Component
+public class UserService implements IUserService  {
+    private final UserDAO userDAO;
+
+    public UserService(){
+        this.userDAO = new UserDAO();
+    }
+    
     @Override
     public User getUserById(int id) {
-        return super.getUserById(id);
+        return userDAO.getUserById(id);
     }
 
     @Override
     public List<User> getAllUsers() {
-        return super.getAllUsers();
+        return userDAO.getAllUsers();
     }
 
     @Override
     public void removeUserById(long id) {
-        super.removeUserById(id);
+        userDAO.removeUserById(id);
     }
 
     @Override
     public void saveUser(User user) {
-        super.saveUser(user);
+        userDAO.saveUser(user);
     }
 
     @Override
     public void updateUser(User user) {
-        super.updateUser(user);
+        userDAO.updateUser(user);
     }
 }
