@@ -2,13 +2,13 @@ package web.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import web.Utils.CreateEntityManager;
 import web.models.User;
 
 import java.util.List;
 
-@Component
+@Repository
 public class UserDAO implements IUserDAO {
     private final CreateEntityManager manager;
 
